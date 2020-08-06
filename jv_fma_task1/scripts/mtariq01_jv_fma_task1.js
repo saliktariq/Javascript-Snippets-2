@@ -39,8 +39,8 @@ Reference: https://www.w3schools.com/jsref/prop_style_fontstyle.asp
 function applyFontStyleToParagraph(elementName,styleProperty){ //elementName represents parent element, styleProperty represents font style value
     let paragraphs = document.getElementById(elementName);
 
-    for(let index=1; index < paragraphs.children.length; index++){
-        paragraphs.children[index].style.fontStyle = styleProperty;
+    for(let index=1; index < paragraphs.children.length; index++){ //Using index=1 as start to skip heading tag
+        paragraphs.children[index].style.fontStyle = styleProperty; //Applying styling to child element
     }
 
 }
@@ -52,9 +52,9 @@ and elementName represents the name of the element after which the new node must
  */
 
 function insertNewNode(newNodeType, newNodeText, elementName){
-    let newNode = document.createElement(newNodeType);
-    newNode.innerHTML = newNodeText;
-    elementName.appendChild(newNode);
+    const newNode = document.createElement(newNodeType); //Creating new node
+    newNode.innerHTML = newNodeText; //Adding text to the new node
+    elementName.appendChild(newNode); //Appending new node to parent element
 }
 
 /*
@@ -62,21 +62,22 @@ Function printSnippets() to print headlines and first line of each article at th
  */
 
 function printSnippets() {
-    const HEADLINES = collectHeadlines("h4");
-    const FIRSTLINES = collectHeadlines("article")
+    const HEADLINES = collectHeadlines("h4"); //Constant to collect nodelist of h4
+    const FIRSTLINES = collectHeadlines("article") //Constant to collect nodelist of articles
 
-    for(let index=0; index <HEADLINES.length; index++){
-        topSnippet = extractText(HEADLINES[index]) + ' ... ' + extractText(extractFirstParagraphChild(FIRSTLINES[index]));
-        const TARGETID = document.getElementById("headlines");
-        insertNewNode("p",topSnippet,TARGETID);
+    for(let index=0; index <HEADLINES.length; index++){ //looping through HEADINGS nodelist
+        topSnippet = extractText(HEADLINES[index]) + ' ... ' + extractText(extractFirstParagraphChild(FIRSTLINES[index])); //creating string
+        const TARGETID = document.getElementById("headlines"); //Fetching the target element
+        insertNewNode("p",topSnippet,TARGETID); //Inserting generated element to parent element
     }
 
-    applyFontStyleToParagraph("headlines","italic");
+    applyFontStyleToParagraph("headlines","italic"); //Applying CSS formatting
 
 
 
 }
 
 window.onload = function () {
+    //Loading the printSnippets() function
     printSnippets();
 }

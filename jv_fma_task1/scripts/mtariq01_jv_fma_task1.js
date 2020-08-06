@@ -31,13 +31,18 @@ function extractText(elementName){ //Variable elementName representing element n
 }
 
 /*
-Function applyFontStyle() applies given font style value to the given element
+Function applyFontStyleToParagraph() applies given font style value to the given element
 Possible values for styleProperty: normal, italic, oblique, initial, inherit
 Reference: https://www.w3schools.com/jsref/prop_style_fontstyle.asp
  */
 
-function applyFontStyle(elementName,styleProperty){ //elementName represents target element, styleProperty represents font style value
-    return elementName.style.fontstyle = styleProperty; //returns element with given styleProperty value
+function applyFontStyleToParagraph(elementName,styleProperty){ //elementName represents parent element, styleProperty represents font style value
+    let paragraphs = document.getElementById(elementName);
+
+    for(let index=1; index < paragraphs.children.length; index++){
+        paragraphs.children[index].style.fontStyle = styleProperty;
+    }
+
 }
 
 /*
@@ -59,18 +64,17 @@ Function printSnippets() to print headlines and first line of each article at th
 function printSnippets() {
     const HEADLINES = collectHeadlines("h4");
     const FIRSTLINES = collectHeadlines("article")
-    let topSnippet = '';
+
     for(let index=0; index <HEADLINES.length; index++){
-        topSnippet += extractText(HEADLINES[index]) + ' ... ' + extractText(extractFirstParagraphChild(FIRSTLINES[index])) + "<br>";
+        topSnippet = extractText(HEADLINES[index]) + ' ... ' + extractText(extractFirstParagraphChild(FIRSTLINES[index]));
+        const TARGETID = document.getElementById("headlines");
+        insertNewNode("p",topSnippet,TARGETID);
     }
 
+    applyFontStyleToParagraph("headlines","italic");
 
 
-    const TARGETID = document.getElementById("headlines");
-    insertNewNode("p",topSnippet,TARGETID);
-    let h2 = document.getElementsByTagName('h2');
-    TARGETID.querySelector("p").style.fontStyle = "italic";
-    TARGETID.querySelector("p").style.lineHeight = "1rem";
+
 }
 
 window.onload = function () {

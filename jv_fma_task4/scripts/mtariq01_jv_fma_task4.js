@@ -36,19 +36,19 @@ function getAge(birthDate, deathDate) {
 }
 
 /*
-Function getAverageAge to get average age for all residents.
-The parameter data data of all residents.
-Returns number which gives average age.
+Function getAverageAge() to get average age for all residents.
+The parameter dataObject represents the dataStructure containing all values for of all residents.
+Returns average age.
 */
 
-function getAverageAge(data) {
-    const AGE = data.map(function (resident) {
-        return getAge(resident.birthdate, resident.deathdate);
+function getAverageAge(dataObject){
+    let averageAge = 0; //Variable averageAge to contain age values from data object
+    $.each(dataObject,(index) => { //Iterating though the dataObject
+        averageAge += getAge(dataObject[index].birthdate, dataObject[index].deathdate); //Adding age for each record in dataObject to averageAge
     });
-    // Reducing the data map to a single value and taking average by dividing it to the number of records (data.length)
-    return Math.floor(AGE.reduce((a, b) => a + b, 0) / data.length)
-}
 
+    return Math.floor(averageAge / dataObject.length); //Using Math.floor to rounding down the decimal value to whole number
+}
 
 //Using $(document).ready to load the code insde this method only when all page resources are fully loaded
 $(document).ready(function () {

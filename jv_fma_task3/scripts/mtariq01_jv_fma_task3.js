@@ -10,18 +10,26 @@ Returns true if valid otherwise false
  */
 function validateInput(inputField,fieldType){
     let errorMsg = "";
+    let result = [];
 
     if ((fieldType !== 1) || (fieldType !== 2)){ //Checking if correct fieldType parameter has been passed
-        return [false,errorMsg];
+        result.push(false);
+        result.push(errorMsg);
+        return result;
+
     }
     if (fieldType === 1){
         const USER = document.getElementById(inputField);
         const REGEXP = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (REGEXP.test(USER.value)){
-            return [true,errorMsg];
+            result.push(true);
+            result.push(errorMsg);
+            return result;
         } else {
             errorMsg = "Username must be a valid email address";
-            return [false, errorMsg];
+            result.push(false);
+            result.push(errorMsg);
+            return result;
         }
     }
 
@@ -29,7 +37,9 @@ function validateInput(inputField,fieldType){
         const PASSWORD = document.getElementById(inputField);
         const REGEXP = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
         if(REGEXP.test(PASSWORD.value)){
-            return [true, errorMsg]
+            result.push(true);
+            result.push(errorMsg);
+            return result;
         } else {
             if(!(/\d/.test(PASSWORD))){
                 errorMsg += "Password must contain a number";
@@ -43,7 +53,9 @@ function validateInput(inputField,fieldType){
             if(PASSWORD.length < 8){
                 errorMsg += "Password must be atleast 8 characteres long";
             }
-            return [false, errorMsg];
+            result.push(false);
+            result.push(errorMsg);
+            return result;
 
 
         }

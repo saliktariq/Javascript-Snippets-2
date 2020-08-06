@@ -41,9 +41,9 @@ The parameter dataObject represents the dataStructure containing all values for 
 Returns average age.
 */
 
-function getAverageAge(dataObject){
+function getAverageAge(dataObject) {
     let averageAge = 0; //Variable averageAge to contain age values from data object
-    $.each(dataObject,(index) => { //Iterating though the dataObject
+    $.each(dataObject, (index) => { //Iterating though the dataObject
         averageAge += getAge(dataObject[index].birthdate, dataObject[index].deathdate); //Adding age for each record in dataObject to averageAge
     });
 
@@ -86,10 +86,10 @@ $(document).ready(function () {
     let dataTable = $("<table><thead><tr><th>First Name</th><th>Last Name</th><th>Born</th><th>Died</th><th>Age At Death</th></tr></thead></table>");
 
     //Attaching table to the DOM at id= #consusdata provided in the HTML
-    $("#censusdata").append(dataTable.attr('id','cenususdatatable'));
+    $("#censusdata").append(dataTable.attr('id', 'cenususdatatable')); //Attaching the CSS id cenususdatatable to the table DOM object
 
     //Iterating through the WORKHOUSEDATA JSON data structure to fill in the form.
-    $.each(WORKHOUSEDATA,(index) => {
+    $.each(WORKHOUSEDATA, (index) => {
         dataTable.append(
             "<tr><td>" + WORKHOUSEDATA[index].firstname +
             "</td><td>" + WORKHOUSEDATA[index].lastname +

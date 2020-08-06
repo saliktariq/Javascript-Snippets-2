@@ -45,41 +45,14 @@ function getAverageAge(data) {
     const AGE = data.map(function (resident) {
         return getAge(resident.birthdate, resident.deathdate);
     });
+    // Reducing the data map to a single value and taking average by dividing it to the number of records (data.length)
     return Math.floor(AGE.reduce((a, b) => a + b, 0) / data.length)
 }
 
-/**
- * Function to setup table and headers.
- * @param div container of table.
- */
-function setupTable(div) {
-    div.html($("<table><thead><tr></tr></thead><tbody></tbody></table>"));
-    const tableRow = div.find("thead tr");
-    tableRow.append("<th>First Name</th>");
-    tableRow.append("<th>Last Name</th>");
-    tableRow.append("<th>Born</th>");
-    tableRow.append("<th>Died</th>");
-    tableRow.append("<th>Age At Death</th>");
-}
 
-/**
- * Function to create a table row for each resident row.
- * @param div container of table.
- * @param resident resident data.
- */
-function createResidentRow(div, resident) {
-    const tableRow = $("<tr></tr>");
-    tableRow.append("<td>" + resident.firstname + "</td>");
-    tableRow.append("<td>" + resident.lastname + "</td>");
-    tableRow.append("<td>" + resident.birthdate + "</td>");
-    tableRow.append("<td>" + resident.deathdate + "</td>");
-    tableRow.append("<td>" + getAge(resident.birthdate, resident.deathdate) + "</td>");
-
-    div.find("tbody").append(tableRow);
-}
-
+//Using $(document).ready to load the code insde this method only when all page resources are fully loaded
 $(document).ready(function () {
-    const workHouseResidentData = [
+    const WORKHOUSEDATA = [ // JSON Object nested in Array
         {
             "firstname": "Harold",
             "lastname": "Mullins",
@@ -108,18 +81,27 @@ $(document).ready(function () {
         }
     ];
 
-    const container = $("#censusdata");
-    // Setup table headers
-    setupTable(container);
-    // Create table body rows for each resident
-    workHouseResidentData.forEach(function (resident) {
-        createResidentRow(container, resident);
-    });
-    // Calculate average age of death
-    $("#averageageatdeath").html(
-        "Average age of death = " + getAverageAge(workHouseResidentData)
-    );
+    //Creating table structure
 
-    $("#censusdata").attr('id', 'cenususdatatable');
+    let dataTable = $("<table><thead><tr><th>First Name</th><th>Last Name</th><th>Born</th><th>Died</th><th>Age At Death</th></tr></thead></table>");
+
+    //Attaching table to the DOM at id= #consusdata provided in the HTML
+    $("#censusdata").append(dataTable.attr('id','cenususdatatable'));
+
+    //Iterating through the WORKHOUSEDATA JSON data structure to fill in the form.
+    $.each(WORKHOUSEDATA,(index) => {
+        dataTable.append(
+            "<tr><td>" + WORKHOUSEDATA[index].firstname +
+            "</td><td>" + WORKHOUSEDATA[index].lastname +
+            "</td><td>" + WORKHOUSEDATA[index].birthdate +
+            "</td><td>" + WORKHOUSEDATA[index].deathdate +
+            "</td><td>" + getAge(WORKHOUSEDATA[index].birthdate, WORKHOUSEDATA[index].deathdate) +
+            "</tr>");
+    });
+
+    //Attaching the Agerage age data to DOM at id=#averageageatdeath in the HTML
+    $("#averageageatdeath").html(
+        "Average age of death = " + getAverageAge(WORKHOUSEDATA) // Calculate average age of death
+    );
 
 });

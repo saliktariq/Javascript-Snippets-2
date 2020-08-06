@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01121f38-603f-4087-9a60-a1a56a06cac1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jv_fma_task1/scripts/mtariq01_jv_fma_task1.js" beforeDir="false" afterPath="$PROJECT_DIR$/jv_fma_task1/scripts/mtariq01_jv_fma_task1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jv_fma_task2/scripts/mtariq01_jv_fma_task2.js" beforeDir="false" afterPath="$PROJECT_DIR$/jv_fma_task2/scripts/mtariq01_jv_fma_task2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jv_fma_task4/scripts/mtariq01_jv_fma_task4.js" beforeDir="false" afterPath="$PROJECT_DIR$/jv_fma_task4/scripts/mtariq01_jv_fma_task4.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jv_fma_task4/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/jv_fma_task4/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,7 @@
       <option name="presentableId" value="Default" />
       <updated>1596667398065</updated>
       <workItem from="1596667399180" duration="20335000" />
+      <workItem from="1596748118659" duration="1579000" />
     </task>
     <servers />
   </component>

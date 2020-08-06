@@ -17,10 +17,10 @@ Function extractFirstChild() to extract first child node from a given element
  */
 
 
-function extractFirstChild(elementName){ //Variable elementName representing parent element
-    const CHILD = elementName.firstChild; //Const CHILD containing first child of element elementName
-    return CHILD; // returns first Child of the parent element - elementName
-}
+ function extractFirstParagraphChild(elementName){ //Variable elementName representing parent element
+     return elementName.querySelector("p");
+
+ }
 
 /*
 Function extractText() to extract text from a specified element
@@ -47,11 +47,32 @@ and elementName represents the name of the element after which the new node must
  */
 
 function insertNewNode(newNodeType, newNodeText, elementName){
-    let newNode = document.createElement(newNodeType); //Creating new element of given node type
-    let nodeText = document.createTextNode(newNodeText); //Creating text node with given text
-    newNode.appendChild(nodeText); //Appending the text nodeto the given node type
-    let parentElement = document.getElementByID(elementName); //Creating variable to contain parent element
-    // Reference: https://www.javascripttutorial.net/javascript-dom/javascript-insertafter/#:~:text=Summary%3A%20in%20this%20tutorial%2C%20you%20will%20learn%20how,after%20an%20existing%20node%20as%20a%20child%20node.
-    parentElement.insertBefore(newNode,parentElement.nextSibling); //inserting newly created node
+    let newNode = document.createElement(newNodeType);
+    newNode.innerHTML = newNodeText;
+    elementName.appendChild(newNode);
 }
 
+/*
+Function printSnippets() to print headlines and first line of each article at the top of the webpage
+ */
+
+function printSnippets() {
+    const HEADLINES = collectHeadlines("h4");
+    const FIRSTLINES = collectHeadlines("article")
+    let topSnippet = '';
+    for(let index=0; index <HEADLINES.length; index++){
+        topSnippet += extractText(HEADLINES[index]) + ' ... ' + extractText(extractFirstParagraphChild(FIRSTLINES[index])) + "<br>";
+    }
+
+
+
+    const TARGETID = document.getElementById("headlines");
+    insertNewNode("p",topSnippet,TARGETID);
+    let h2 = document.getElementsByTagName('h2');
+    TARGETID.querySelector("p").style.fontStyle = "italic";
+    TARGETID.querySelector("p").style.lineHeight = "1rem";
+}
+
+window.onload = function () {
+    printSnippets();
+}

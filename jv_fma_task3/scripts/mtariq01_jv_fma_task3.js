@@ -41,7 +41,7 @@ function isValidEmail(input) {
 Function validateInput() checks if the text entered in the form field is valid as per application specification.
 Parameters are inputField containing the form field which can be either username or password field, and
 fieldType which may contain 2 possible values: "usr" for username field type and "pwd" for password field type
-Returns array containing boolean value and a message; boolean is true if inputField validates.
+Returns array containing boolean value and a message; boolean is true if inputField validation passes.
  */
 function validateInput(inputField, fieldType) {
     let errorMsg = "";
@@ -64,7 +64,7 @@ function validateInput(inputField, fieldType) {
     if (fieldType === "pwd") {
         const PASSWORD = document.getElementById(inputField);
         if (!hasEightChars(PASSWORD)) {
-            errorMsg += " Password must be atleast 8 characteres long. ";
+            errorMsg += " Password must be at least 8 characters long. ";
             validPassword = false;
         }
         if (!hasUpperCase(PASSWORD)) {

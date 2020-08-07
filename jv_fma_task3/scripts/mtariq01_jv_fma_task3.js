@@ -26,7 +26,7 @@ function hasUpperCase(input) {
 Function to check if the string length is minimum 8 characters
  */
 function hasEightChars(input) {
-    return (input.value >= 8);
+    return (input.value.length >= 8);
 }
 
 /*
@@ -34,7 +34,7 @@ Function to check if the string is a valid email address
 */
 function isValidEmail(input) {
     const REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return REGEX.text(input.value);
+    return REGEX.test(input.value);
 }
 
 /*
@@ -98,7 +98,80 @@ function validateInput(inputField, fieldType) {
     }
 }
 
-window.onload = function () {
+/*
+Function unmaskPassword unmasks password into clear text.
+Parameter pwd contains the id of password field and repwd contains id of retype password field
+ */
 
-    console.log(validateInput("password", "pwd"));
+function unmaskPassword(pwd,repwd){
+    const passwordField = document.getElementById(pwd);
+    const retypePasswordField = document.getElementById(repwd);
+
+    if(passwordField.type === "password"){
+        passwordField.type = "text";
+        retypePasswordField.type = "text";
+    }
 }
+
+
+/*
+Function clearError to clear the errors on the form
+ */
+
+function clearError(){
+    const ERROR = document.querySelector(".error");
+    if(ERROR){
+        ERROR.style.display = "none";
+    }
+}
+
+window.onload = () => {
+    // Assigning the current form to thisForm variable retrieved by ID
+    let thisForm = document.getElementById("regsiterdetails");
+    // Creating event listener and attaching to the form
+    thisForm.addEventListener("submit",
+        (event) => {
+            let stopSubmit = false;
+            const passwordValue = document.getElementById("password").value;
+            const retypedPasswordValue = document.getElementById("retypedpassword").value;
+
+            clearError();
+
+            if (!validateInput("username","usr")) {
+                stopSubmit = true;
+               console.log(validateInput("username","usr")); //todo: display error
+
+            }
+            if (!validateInput("password","pwd")) {
+                stopSubmit = true;
+                console.log(validateInput("password","pwd")); //todo: display error
+            }
+
+            if (passwordValue !== retypedPasswordValue) {
+                stopSubmit = true;
+                console.log("password mismatch");//todo: display error
+            }
+
+            if (stopSubmit) {
+                event.preventDefault();
+            }
+        }, false);
+
+
+    let checkbox = document.getElementById("showpasswords"); //https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
+    checkbox.addEventListener( 'change', function() {
+        if(this.checked) {
+            unmaskPassword("password", "retypedpassword");
+        } else {
+            document.getElementById("password").type = "password";
+            document.getElementById("retypedpassword").type = "password";
+
+        }
+    });
+
+};
+
+// window.onload = () => {
+//    togglePasswordVisibility("password","retypedpassword");
+// }
+

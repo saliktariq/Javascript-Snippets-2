@@ -26,7 +26,7 @@ function hasUpperCase(input) {
 Function to check if the string length is minimum 8 characters
  */
 function hasEightChars(input) {
-    return (input >= 8);
+    return (input.value >= 8);
 }
 
 /*
@@ -40,50 +40,43 @@ function isValidEmail(input) {
 /*
 Function validateInput() checks if the text entered in the form field is valid as per application specification.
 Parameters are inputField containing the form field which can be either username or password field, and
-fieldType which may contain 2 possible values: 1 for username field type and 2 for password field type
-Returns true if valid otherwise false
+fieldType which may contain 2 possible values: "usr" for username field type and "pwd" for password field type
+Returns array containing boolean value and a message; boolean is true if inputField validates.
  */
 function validateInput(inputField, fieldType) {
     let errorMsg = "";
     let result = [];
 
-    if ((fieldType.value !== 1) || (fieldType.value !== 2)) { //Checking if correct fieldType parameter has been passed
-        result.push(false);
-        errorMsg = fieldType.value;
-        result.push(errorMsg);
-        return result;
-
-    }
-    if (fieldType == 1) {
+    if (fieldType === "usr") {
         const USER = document.getElementById(inputField);
         if (isValidEmail(USER)) {
             result.push(true);
             result.push(errorMsg);
             return result;
         } else {
-            errorMsg = "Username must be a valid email address";
+            errorMsg = " Username must be a valid email address. ";
             result.push(false);
             result.push(errorMsg);
             return result;
         }
     }
     let validPassword = true;
-    if (fieldType == 2) {
+    if (fieldType === "pwd") {
         const PASSWORD = document.getElementById(inputField);
         if (!hasEightChars(PASSWORD)) {
-            errorMsg += "Password must be atleast 8 characteres long";
+            errorMsg += " Password must be atleast 8 characteres long. ";
             validPassword = false;
         }
         if (!hasUpperCase(PASSWORD)) {
-            errorMsg += "Password must contain an uppercase letter.";
+            errorMsg += " Password must contain an uppercase letter. ";
             validPassword = false;
         }
         if (!hasLowerCase(PASSWORD)) {
-            errorMsg += "Password must contain a lowercase letter.";
+            errorMsg += " Password must contain a lowercase letter. ";
             validPassword = false;
         }
         if (!hasNumber((PASSWORD))) {
-            errorMsg += "Password must contain a number";
+            errorMsg += " Password must contain a number. ";
             validPassword = false;
         }
         if (validPassword) {
@@ -97,10 +90,15 @@ function validateInput(inputField, fieldType) {
         }
 
 
+    } else { //Execute if invalid fieldType is provided.
+        result.push(false);
+        errorMsg = fieldType + " is not a valid fieldType value. ";
+        result.push(errorMsg);
+        return result;
     }
 }
 
 window.onload = function () {
-    let USER = document.getElementById("password")
-    console.log(validateInput(USER, 2));
+
+    console.log(validateInput("password", "pwd"));
 }

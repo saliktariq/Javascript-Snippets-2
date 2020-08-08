@@ -150,6 +150,7 @@ window.onload = () => {
     // Assigning the current form to thisForm variable retrieved by ID
     let thisForm = document.getElementById("regsiterdetails");
     // Creating event listener and attaching to the form
+    document.getElementById("showpasswords").checked = false; //making sure the checkbox is unchecked when form loads
     thisForm.addEventListener("submit",
         (event) => {
 

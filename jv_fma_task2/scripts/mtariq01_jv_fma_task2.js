@@ -58,3 +58,7 @@ function exchangeRateEventHandler() {
         clearExchangeMessage(); //Clears the message otherwise
     }
 }
+
+/*
+The CSS rules provided are 'select' and 'body' which are applied to the HTML tags select and body by default
+ */

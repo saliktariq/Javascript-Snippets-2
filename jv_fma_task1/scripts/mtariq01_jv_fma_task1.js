@@ -37,10 +37,10 @@ Reference: https://www.w3schools.com/jsref/prop_style_fontstyle.asp
  */
 
 function applyFontStyleToParagraph(elementName, styleProperty) { //elementName represents parent element, styleProperty represents font style value
-    let paragraphs = document.getElementById(elementName);
+    const PARAGRAPH = document.getElementById(elementName);
 
-    for (let index = 1; index < paragraphs.children.length; index++) { //Using index=1 as start to skip heading tag
-        paragraphs.children[index].style.fontStyle = styleProperty; //Applying styling to child element
+    for (let index = 1; index < PARAGRAPH.children.length; index++) { //Using index=1 as start to skip heading tag
+        PARAGRAPH.children[index].style.fontStyle = styleProperty; //Applying styling to child element
     }
 
 }
@@ -52,9 +52,9 @@ and elementName represents the name of the element after which the new node must
  */
 
 function insertNewNode(newNodeType, newNodeText, elementName) {
-    const newNode = document.createElement(newNodeType); //Creating new node
-    newNode.innerHTML = newNodeText; //Adding text to the new node
-    elementName.appendChild(newNode); //Appending new node to parent element
+    const NEWNODE = document.createElement(newNodeType); //Creating new node
+    NEWNODE.innerHTML = newNodeText; //Adding text to the new node
+    elementName.appendChild(NEWNODE); //Appending new node to parent element
 }
 
 /*

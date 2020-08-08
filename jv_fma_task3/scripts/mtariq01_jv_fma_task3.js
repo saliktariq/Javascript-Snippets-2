@@ -2,23 +2,23 @@
 Function to check if the given input has number in it
  */
 function hasNumber(input) {
-    const REGEX = /\d/;
-    return REGEX.test(input.value);
+    const REGEX = /\d/; //regular expression for 'contains' numbers
+    return REGEX.test(input.value); //checking if the given input contains numbers
 }
 
 /*
 Function to check if the given input has lowercase letter in it
  */
 function hasLowerCase(input) {
-    const REGEX = /[a-z]/;
-    return REGEX.test(input.value);
+    const REGEX = /[a-z]/; //regular expression for 'contains' lowercase alphabets
+    return REGEX.test(input.value); //checking if the given input 'contains' lowercase alphabets
 }
 
 /*
 Function to check if the given input has uppercase letter in it
  */
 function hasUpperCase(input) {
-    const REGEX = /[A-Z]/;
+    const REGEX = /[A-Z]/; //regular expression for 'contains' uppercase alphabets
     return REGEX.test(input.value);
 }
 
@@ -116,16 +116,16 @@ function unmaskPassword(pwd, repwd) {
     }
 }
 
-
 /*
 Function clearError to clear the errors on the form
  */
 
 function clearError() {
-    const ERROR = document.querySelector(".error");
-    if (ERROR) {
-        ERROR.style.display = "none";
-
+    const ERRORS = document.querySelectorAll(".error");
+    if(ERRORS){
+        ERRORS.forEach(function (result){
+            result.style.display = "none";
+        });
     }
 }
 
@@ -136,15 +136,14 @@ Parameters are errorMessage containing error message string and pos containing p
 
 function displayErrors(errorMessage, pos) {
     //todo: find error dom elements and remove them all
-
     const POSITION = document.getElementById(pos);
     const ERROR = document.createElement("div");
+    ERROR.id = 'error';
     ERROR.innerHTML = errorMessage;
     ERROR.classList.add("error");
 
     POSITION.parentNode.insertBefore(ERROR, POSITION.nextSibling);
     ERROR.style.display = "block";
-
 }
 
 window.onload = () => {
@@ -163,10 +162,6 @@ window.onload = () => {
             if (!validateInput("username", "usr")[0]) {
                 stopSubmit = true;
                 displayErrors(validateInput("username", "usr")[1], "username");
-
-
-
-
             }
             if (!validateInput("password", "pwd")[0]) {
                 stopSubmit = true;

@@ -33,8 +33,11 @@ function hasEightChars(input) {
 Function to check if the string is a valid email address
 */
 function isValidEmail(input) {
-    const REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return REGEX.test(input.value);
+    if(input.value.length > 0){
+        const REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return REGEX.test(input.value);
+    }
+    return false;
 }
 
 /*
@@ -126,35 +129,38 @@ function clearError(){
 }
 
 window.onload = () => {
+
     // Assigning the current form to thisForm variable retrieved by ID
     let thisForm = document.getElementById("regsiterdetails");
     // Creating event listener and attaching to the form
     thisForm.addEventListener("submit",
         (event) => {
+
             let stopSubmit = false;
-            const passwordValue = document.getElementById("password").value;
-            const retypedPasswordValue = document.getElementById("retypedpassword").value;
+            const passwordValue = document.getElementById("password");
+            const retypedPasswordValue = document.getElementById("retypedpassword");
 
             clearError();
 
-            if (!validateInput("username","usr")) {
+            if (!validateInput("username","usr")[0]) {
                 stopSubmit = true;
-               console.log(validateInput("username","usr")); //todo: display error
+               //todo: display error
 
             }
-            if (!validateInput("password","pwd")) {
+            if (!validateInput("password","pwd")[0]) {
                 stopSubmit = true;
-                console.log(validateInput("password","pwd")); //todo: display error
+                 //todo: display error
             }
 
-            if (passwordValue !== retypedPasswordValue) {
+            if (passwordValue.value !== retypedPasswordValue.value) {
                 stopSubmit = true;
-                console.log("password mismatch");//todo: display error
+              //todo: display error
             }
 
             if (stopSubmit) {
                 event.preventDefault();
             }
+
         }, false);
 
 
@@ -170,8 +176,3 @@ window.onload = () => {
     });
 
 };
-
-// window.onload = () => {
-//    togglePasswordVisibility("password","retypedpassword");
-// }
-

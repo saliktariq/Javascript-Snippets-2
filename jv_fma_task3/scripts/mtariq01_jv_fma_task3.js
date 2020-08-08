@@ -33,7 +33,7 @@ function hasEightChars(input) {
 Function to check if the string is a valid email address
 */
 function isValidEmail(input) {
-    if(input.value.length > 0){
+    if (input.value.length > 0) {
         const REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         return REGEX.test(input.value);
     }
@@ -106,11 +106,11 @@ Function unmaskPassword unmasks password into clear text.
 Parameter pwd contains the id of password field and repwd contains id of retype password field
  */
 
-function unmaskPassword(pwd,repwd){
+function unmaskPassword(pwd, repwd) {
     const passwordField = document.getElementById(pwd);
     const retypePasswordField = document.getElementById(repwd);
 
-    if(passwordField.type === "password"){
+    if (passwordField.type === "password") {
         passwordField.type = "text";
         retypePasswordField.type = "text";
     }
@@ -121,15 +121,33 @@ function unmaskPassword(pwd,repwd){
 Function clearError to clear the errors on the form
  */
 
-function clearError(){
+function clearError() {
     const ERROR = document.querySelector(".error");
-    if(ERROR){
+    if (ERROR) {
         ERROR.style.display = "none";
+
     }
 }
 
-window.onload = () => {
+/*
+Function displayErrors to display error messages
+Parameters are errorMessage containing error message string and pos containing position of error to be displayed in DOM
+*/
 
+function displayErrors(errorMessage, pos) {
+
+    const ERROR = document.createElement("div");
+    ERROR.innerHTML = errorMessage;
+    ERROR.classList.add("error");
+
+    const POSITION = document.getElementById(pos);
+    POSITION.parentNode.insertBefore(ERROR, POSITION.nextSibling);
+
+    ERROR.style.display = "block";
+}
+
+
+window.onload = () => {
     // Assigning the current form to thisForm variable retrieved by ID
     let thisForm = document.getElementById("regsiterdetails");
     // Creating event listener and attaching to the form
@@ -142,19 +160,19 @@ window.onload = () => {
 
             clearError();
 
-            if (!validateInput("username","usr")[0]) {
+            if (!validateInput("username", "usr")[0]) {
                 stopSubmit = true;
-               //todo: display error
+                displayErrors(validateInput("username", "usr")[1], "username");
 
             }
-            if (!validateInput("password","pwd")[0]) {
+            if (!validateInput("password", "pwd")[0]) {
                 stopSubmit = true;
-                 //todo: display error
+                displayErrors(validateInput("password", "pwd")[1], "password");
             }
 
             if (passwordValue.value !== retypedPasswordValue.value) {
                 stopSubmit = true;
-              //todo: display error
+                displayErrors("Password and retype password must match!", "passwordmatcherror");
             }
 
             if (stopSubmit) {
@@ -165,8 +183,8 @@ window.onload = () => {
 
 
     let checkbox = document.getElementById("showpasswords"); //https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
-    checkbox.addEventListener( 'change', function() {
-        if(this.checked) {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
             unmaskPassword("password", "retypedpassword");
         } else {
             document.getElementById("password").type = "password";

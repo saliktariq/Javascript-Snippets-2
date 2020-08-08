@@ -135,17 +135,17 @@ Parameters are errorMessage containing error message string and pos containing p
 */
 
 function displayErrors(errorMessage, pos) {
+    //todo: find error dom elements and remove them all
 
+    const POSITION = document.getElementById(pos);
     const ERROR = document.createElement("div");
     ERROR.innerHTML = errorMessage;
     ERROR.classList.add("error");
 
-    const POSITION = document.getElementById(pos);
     POSITION.parentNode.insertBefore(ERROR, POSITION.nextSibling);
-
     ERROR.style.display = "block";
-}
 
+}
 
 window.onload = () => {
     // Assigning the current form to thisForm variable retrieved by ID
@@ -164,10 +164,14 @@ window.onload = () => {
                 stopSubmit = true;
                 displayErrors(validateInput("username", "usr")[1], "username");
 
+
+
+
             }
             if (!validateInput("password", "pwd")[0]) {
                 stopSubmit = true;
                 displayErrors(validateInput("password", "pwd")[1], "password");
+
             }
 
             if (passwordValue.value !== retypedPasswordValue.value) {
